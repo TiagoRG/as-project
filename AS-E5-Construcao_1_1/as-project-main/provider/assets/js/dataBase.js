@@ -51,7 +51,7 @@ function openDb() {
                         country: "Portugal",
                         number: "+923456789",
                         imgProvider: "",
-                        password: "39MN6U@7!"
+                        password: "123456"
 
                     },
                     {

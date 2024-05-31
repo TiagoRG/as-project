@@ -1,11 +1,14 @@
 import { openDb, DB_STORE_NAME, DB_STORE_NAME_2, DB_STORE_NAME_3, DB_STORE_NAME_4, DB_STORE_NAME_5,DB_STORE_NAME_6,DB_STORE_NAME_7} from './dataBase.js';
 let db;
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Open the database connection using the imported function
+	openDb().then(database => {db = database;}).catch(error => {console.error("Error opening database:", error);})
+});
+
 document.getElementById('submit').addEventListener('click', function(event) {
     event.preventDefault();  // Prevent default form submission behavior
 
-    // Open the database connection using the imported function
-    openDb().then(database => {db = database;
     // Create a read-only transaction
     var transaction = db.transaction(DB_STORE_NAME, 'readonly');
     var objectStore = transaction.objectStore(DB_STORE_NAME);
@@ -25,10 +28,7 @@ document.getElementById('submit').addEventListener('click', function(event) {
             window.location.href = '/index.html';
         } else {alert('Invalid credentials =( Try again ...');}
     };
-    request.onerror = function(event) {console.log('Erro:', event.target.errorCode);};})
-    .catch(error => {console.error("Error opening database:", error);});
-
- 
+    request.onerror = function(event) {console.log('Erro:', event.target.errorCode);};
 });
 // Add an event listener for beforeunload to close the database connection
 window.addEventListener('beforeunload', function() {
