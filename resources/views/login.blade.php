@@ -44,6 +44,13 @@
                                             <button class="btn btn-primary d-block w-100" type="submit">Login</button>
                                         </div>
                                     </form>
+                                    @if(session('status'))
+                                        @if(session('status') == 'Invalid credentials!')
+                                            <div class="alert alert-danger" role="alert">
+                                                Invalid credentials!
+                                            </div>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>

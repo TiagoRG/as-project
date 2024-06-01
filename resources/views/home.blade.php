@@ -142,10 +142,7 @@
 <script src="js/home.js"></script>
 <script>
     @if (session('status'))
-        @if(session('status') == "Login successful!")
-            var myModal = new bootstrap.Modal(document.getElementById('statusModal'), {});
-            myModal.show();
-        @elseif(session('status') == "Logout successful!")
+        @if(session('status') == "Login successful!" || session('status') == "Logout successful!")
             var myModal = new bootstrap.Modal(document.getElementById('statusModal'), {});
             myModal.show();
         @endif

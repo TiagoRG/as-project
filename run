@@ -1,0 +1,26 @@
+#!/bin/bash
+
+composer install
+if [ $? -ne 0 ]; then
+    echo "Composer install failed"
+    exit 1
+fi
+
+# get script directory
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" || exit ; pwd -P )
+cd "$parent_path" || exit
+ln -sf "$parent_path"/resources/css public/css
+ln -sf "$parent_path"/resources/js public/js
+ln -sf "$parent_path"/resources/img public/img
+
+if [ ! -f "public/contact_data.csv" ]; then
+    echo "Name,Email,Message" > public/contact_data.csv
+fi
+
+if [ ! -f "public/users.csv" ]; then
+    echo "Name,Email,Password" > public/users.csv
+fi
+
+php artisan serve
+
+cd - || exit

@@ -18,14 +18,20 @@
             <div class="dropdown"><a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
                         style="color: rgb(11, 11, 11);">{{ $_COOKIE['username'] }}</span><span
                         style="color: rgb(255, 255, 255);"> </span></a>
-                <div class="dropdown-menu"><a class="dropdown-item" href="/logout">Logout</a></div>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="/profile">Profile</a>
+                    <a class="dropdown-item" href="/requests">My Requests</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
             </div>
         @else
-            <div class="dropdown"><a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
+            <div class="dropdown">
+                <a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
                         style="color: rgb(11, 11, 11);">User</span><span style="color: rgb(255, 255, 255);"> </span></a>
-                <div class="dropdown-menu"><a class="dropdown-item" href="/login">Login</a><a class="dropdown-item"
-                                                                                              href="/signup">Sign
-                        up</a><a class="dropdown-item" href="#">Provider</a></div>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="/login">Login</a>
+                    <a class="dropdown-item" href="/signup">Sign up</a>
+                </div>
             </div>
         @endif
     </div>
