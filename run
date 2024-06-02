@@ -20,7 +20,7 @@ if [ ! -f "public/users.csv" ]; then
 fi
 
 if [ ! -f "public/bookings.csv" ]; then
-    echo "Service,Provider,Description,BookedBy,Status" > public/bookings.csv
+    echo "Service,Provider,Description,BookedBy,Status,ID" > public/bookings.csv
 fi
 
 php artisan serve

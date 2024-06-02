@@ -15,13 +15,8 @@
 
 <body style="background: url(&quot;img/login/clipboard-image.png&quot;)">
 <div class="container" style="margin-top:50px">
-    <div class="row mb-5">
-        <div class="col-md-8 col-xl-6 text-center mx-auto">
-            <h2><span style="color: rgb(11, 94, 215);">Login</span></h2>
-        </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-6 col-xl-4 col-xxl-4">
+    <div class="row d-flex justify-content-center" style="margin-top: 15%">
+        <div class="col-md-6 col-xl-4">
             <div class="card mb-5">
                 <div class="card-body d-flex flex-column align-items-center">
                     <div class="bs-icon-xl bs-icon-circle bs-icon-primary bs-icon my-4">
