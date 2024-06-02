@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if ! which php > /dev/null; then
+    echo "PHP is not installed"
+    exit 1
+fi
+
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" || exit ; pwd -P )
+cd "$parent_path" || exit
+ln -sf "$parent_path"/resources/css public
+ln -sf "$parent_path"/resources/js public
+ln -sf "$parent_path"/resources/img public
+
+if [ ! -f "public/contact_data.csv" ]; then
+    echo "Name,Email,Message" > public/contact_data.csv
+fi
+
+if [ ! -f "public/users.csv" ]; then
+    echo "Name,Email,Password" > public/users.csv
+fi
+
+if [ ! -f "public/bookings.csv" ]; then
+    echo "Service,Provider,Description,BookedBy,Status,ID" > public/bookings.csv
+fi
+
+php artisan serve
+
+cd - || exit
