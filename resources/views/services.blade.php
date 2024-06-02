@@ -154,7 +154,8 @@
                 </div>
                 <div class="modal-body">
                     <input id="serviceModalName" name="service" class="styled-input name-input" readonly/>
-                    <input id="serviceModalProvider" name="provider" class="styled-input" readonly/>
+                    Service provided by: <input id="serviceModalProvider" name="provider" class="styled-input" readonly/>
+                    <hr>
                     <input id="serviceModalDescription" name="description" class="styled-input" readonly/>
                 </div>
                 <div class="modal-footer">

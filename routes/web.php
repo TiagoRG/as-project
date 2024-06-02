@@ -43,7 +43,7 @@ Route::get('/services', function () {
     return view('services');
 });
 
-Route::get('requests', function () {
+Route::get('/requests', function () {
     if (!isset($_COOKIE['email'])) {
         return redirect('/login')->with('error', 'Login required!');
     }
@@ -52,14 +52,60 @@ Route::get('requests', function () {
     $requests = array();
     $file = fopen('bookings.csv', 'r');
     while (($data = fgetcsv($file)) !== FALSE) {
-        if ($data[1] == $email) {
-            array_push($requests, $data);
+        if ($data[3] == $email) {
+            $requests[] = $data;
         }
     }
     fclose($file);
 
-    return view('requests')->with('requests', $requests);
+    usort($requests, function ($a, $b) {
+        return $a[4] == $b[4] ? $a[5] <=> $b[5] : ($a[4] == 'Active' ? -1 : 1);
+    });
+
+    return view('/requests')->with('requests', $requests);
 });
+
+Route::post('/requests.cancel', function(Request $request) {
+    $requestId = $request->input('requestId');
+
+    $file = fopen('bookings.csv', 'r');
+    $data = array();
+    while (($row = fgetcsv($file)) !== FALSE) {
+        if ($row[5] == $requestId) {
+            $row[4] = 'Cancelled';
+        }
+        $data[] = $row;
+    }
+    fclose($file);
+
+    $file = fopen('bookings.csv', 'w');
+    foreach ($data as $row) {
+        fputcsv($file, $row);
+    }
+    fclose($file);
+
+    return redirect('/requests')->with('status', 'Request cancelled!');
+
+})->name('requests.cancel');
+
+Route::post('/requests.dismiss', function(Request $request) {
+    $requestId = $request->input('requestId');
+
+    $file = fopen('bookings.csv', 'r');
+    $data = array();
+    while (($row = fgetcsv($file)) !== FALSE) {
+        if ($row[5] == $requestId)
+            continue;
+        $data[] = $row;
+    }
+
+    $file = fopen('bookings.csv', 'w');
+    foreach ($data as $row) {
+        fputcsv($file, $row);
+    }
+
+    return redirect('/requests')->with('status', 'Request dismissed!');
+})->name('requests.dismiss');
 
 Route::post('/book-service', function (Request $request) {
     $serviceName = $request->input('service');
@@ -72,12 +118,14 @@ Route::post('/book-service', function (Request $request) {
 
     try {
         $file = fopen("bookings.csv", "r");
+        $lastId = 0;
         while (($data = fgetcsv($file)) !== FALSE) {
-            if ($serviceName == $data[0] && $serviceProvider == $data[1] && $serviceDescription == $data[2] && $bookedBy == $data[3])
+            if ($serviceName == $data[0] && $serviceProvider == $data[1] && $serviceDescription == $data[2] && $bookedBy == $data[3] && $data[4] == 'Active')
                 return redirect('/services')->with('error', 'You have already booked that service!');
+            $lastId = max((int)$data[5], $lastId);
         }
         $file = fopen("bookings.csv", "a");
-        $data = array($serviceName, $serviceProvider, $serviceDescription, $bookedBy);
+        $data = array($serviceName, $serviceProvider, $serviceDescription, $bookedBy, "Active", $lastId + 1);
         fputcsv($file, $data);
         fclose($file);
     } catch (Exception $e) {

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var modalDescription = serviceModal.querySelector('#serviceModalDescription');
 
         modalTitle.value = serviceName;
-        modalProvider.value = `Service provided by: ${serviceProvider}`;
+        modalProvider.value = serviceProvider;
         modalDescription.value = serviceDescription;
     });
 });
