@@ -43,6 +43,24 @@ Route::get('/services', function () {
     return view('services');
 });
 
+Route::get('requests', function () {
+    if (!isset($_COOKIE['email'])) {
+        return redirect('/login')->with('error', 'Login required!');
+    }
+    $email = $_COOKIE['email'];
+
+    $requests = array();
+    $file = fopen('bookings.csv', 'r');
+    while (($data = fgetcsv($file)) !== FALSE) {
+        if ($data[1] == $email) {
+            array_push($requests, $data);
+        }
+    }
+    fclose($file);
+
+    return view('requests')->with('requests', $requests);
+});
+
 Route::post('/book-service', function (Request $request) {
     $serviceName = $request->input('service');
     $serviceProvider = $request->input('provider');

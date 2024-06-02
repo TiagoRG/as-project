@@ -13,6 +13,7 @@
             <a href="/services"><button class="btn btn-light me-2" type="button">Services</button></a>
             <a href="/provider"><button class="btn btn-light me-2" type="button">Provider</button></a>
             <a href="/contact"><button class="btn btn-light me-2" type="button">Contact</button></a>
+            <a href="/requests"><button class="btn btn-light me-2" type="button">Requests</button></a>
         </div>
         @if(isset($_COOKIE['username']))
             <div class="dropdown">
