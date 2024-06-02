@@ -1,26 +1,30 @@
-<div class="container" style="margin-top: 50px"><!-- Start: Footer Multi Column -->
+@include('layout.terms')
+<div class="container" style="margin-top: 50px">
     <footer>
         <div class="container py-4 py-lg-5">
-            <div class="row justify-content-center"><!-- Start: Services -->
+            <div class="row justify-content-center">
                 <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column item">
                     <ul class="list-unstyled"></ul>
-                    <img src="img/home/clipboard-image-12.png" width="162"
-                         height="94" style="margin-right: 129px;padding-right: 0px;padding-left: 0px;"></div>
-                <!-- End: Services --><!-- Start: About -->
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column item"
-                     style="margin-left: -1px;"><h2 class="fs-6" style="padding-bottom: 6px;margin-bottom: 8px;">
-                        <strong>PETOTEL</strong></h2><small class="form-text">Your trusted partner in pet care
-                        solutions.<br>Tailored services for happy pets and satisfied owners.<br>Contact us for inquiries and
-                        bookings.</small></div><!-- End: About --><!-- Start: Careers -->
-                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column item"><h3 class="fs-6">
-                        <strong>QUICK LINKS</strong></h3>
+                    <img src="img/home/clipboard-image-12.png" width="162" height="94" style="margin-right: 129px;padding-right: 0px;padding-left: 0px;">
+                </div>
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column item" style="margin-left: -1px;">
+                    <h2 class="fs-6" style="padding-bottom: 6px;margin-bottom: 8px;"><strong>PETOTEL</strong></h2>
+                    <small class="form-text">
+                        Your trusted partner in pet care solutions.<br>
+                        Tailored services for happy pets and satisfied owners.<br>
+                        Contact us for inquiries and bookings.
+                    </small>
+                </div><!-- End: About --><!-- Start: Careers -->
+                <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column item">
+                    <h3 class="fs-6"><strong>QUICK LINKS</strong></h3>
                     <ul class="list-unstyled">
                         <li><a class="link-secondary" href="/">Home</a></li>
                         <li><a class="link-secondary" href="/services">Services</a></li>
                         <li><a class="link-secondary" href="/contact">Contact</a></li>
+                        <li><a class="link-secondary" href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions.</a></li>
                     </ul>
-                </div><!-- End: Careers -->
-                <div class="col"><!-- Start: Footer Basic -->
+                </div>
+                <div class="col">
                     <footer class="text-center">
                         <div class="container text-muted py-4 py-lg-5"><h5><strong>Follow us</strong></h5>
                             <ul class="list-inline">
@@ -44,7 +48,9 @@
                                 </li>
                             </ul>
                         </div>
-                    </footer><!-- End: Footer Basic --></div>
+                    </footer>
+                </div>
             </div>
         </div>
-    </footer><!-- End: Footer Multi Column --></div>
+    </footer>
+</div>

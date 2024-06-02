@@ -45,8 +45,11 @@
                             <div class="mb-3">
                                 <input class="form-control" type="password" name="cpassword" placeholder="Confirm Password" required>
                             </div>
-                            <small><input type="checkbox" required/><span
-                                style="color: rgb(0, 0, 0);">&nbsp;I accept the terms and conditions.</span></small>
+                            <small>
+                                <input type="checkbox" required/>
+                                <span style="color: rgb(0, 0, 0);">&nbsp;I accept the </span>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">terms and conditions.</a>
+                            </small>
                             <div class="mb-3"></div>
                             <div class="row">
                                 <div class="col">
@@ -83,6 +86,7 @@
         </div>
     </div>
 </div>
+@include('layout.terms')
 <!-- Error Modal -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
     <div class="modal-dialog">

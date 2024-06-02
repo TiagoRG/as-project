@@ -50,7 +50,7 @@
                         </div>
                         <div class="px-2">
                             <h6 class="mb-0">Email</h6>
-                            <p class="mb-0">support@petotel.com</p>
+                            <p class="mb-0">support@petotel.tiagorg.pt</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center p-3">
@@ -106,7 +106,7 @@
         </div>
     </div>
 </div>
-
+@include('layout.footer')
 <script>
     // Show the modal if there is a status message
     @if (session('status'))
@@ -114,7 +114,6 @@
         myModal.show();
     @endif
 </script>
-@include('layout.footer')
 </body>
 
 </html>

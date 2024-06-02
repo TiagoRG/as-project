@@ -69,8 +69,10 @@ Route::post('/book-service', function (Request $request) {
     return redirect('/services')->with('status', 'Service booked!');
 })->name('book-service');
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/login', function (Request $request) {
+    if (isset($_COOKIE['email']))
+        return redirect('/');
+    return view('login')->with('email', $request->has('email') ? $request->input('email') : '');
 });
 
 Route::post('/login.submit', function (Request $request) {
@@ -88,11 +90,13 @@ Route::post('/login.submit', function (Request $request) {
         }
     }
 
-    return redirect('/login')->with('inputError', 'Invalid credentials!');
+    return redirect('/login')->with('inputError', 'Invalid credentials!')->with('email', $email);
 })->name('login.submit');
 
-Route::get('/signup', function () {
-    return view('signup');
+Route::get('/signup', function (Request $request) {
+    if (isset($_COOKIE['email']))
+        return redirect('/');
+    return view('signup')->with('email', $request->has('email') ? $request->input('email') : '')->with('name', $request->has('name') ? $request->input('name') : '');
 });
 
 Route::post('/signup.submit', function (Request $request) {
@@ -102,7 +106,7 @@ Route::post('/signup.submit', function (Request $request) {
     $cpassword = $request->input('cpassword');
 
     if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email))
-        return redirect('/signup')->with('inputError', 'Email must be a valid address!')->with('email', $email)->with('name', $username);
+        return redirect('/signup')->with('inputError', 'Email must be a valid address!')->with('name', $username);
     if ($password != $cpassword)
         return redirect('/signup')->with('inputError', 'Passwords do not match!')->with('email', $email)->with('name', $username);
 
@@ -115,11 +119,11 @@ Route::post('/signup.submit', function (Request $request) {
         while (($data = fgetcsv($file)) !== FALSE) {
             if ($data[0] == $username) {
                 fclose($file);
-                return redirect('/signup')->with('error', 'Username already exists!');
+                return redirect('/signup')->with('error', 'Username already exists!')->with('email', $email);
             }
             if ($data[1] == $email) {
                 fclose($file);
-                return redirect('/signup')->with('error', 'Email already exists!');
+                return redirect('/signup')->with('error', 'Email already exists!')->with('name', $username);
             }
         }
         $file = fopen('users.csv', 'a');
@@ -130,7 +134,7 @@ Route::post('/signup.submit', function (Request $request) {
         return redirect('/signup')->with('error', 'Signup failed!');
     }
 
-    return redirect('/login')->with('status', 'Signup successful!');
+    return redirect('/login')->with('status', 'Signup successful!')->with('email', $email);
 })->name('signup.submit');
 
 Route::get('/logout', function () {
