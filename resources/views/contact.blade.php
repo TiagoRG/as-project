@@ -38,7 +38,7 @@
                         </div>
                         <div class="px-2">
                             <h6 class="mb-0">Phone</h6>
-                            <p class="mb-0">-----</p>
+                            <p class="mb-0">+923578954</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center p-3">
@@ -50,7 +50,7 @@
                         </div>
                         <div class="px-2">
                             <h6 class="mb-0">Email</h6>
-                            <p class="mb-0">-----</p>
+                            <p class="mb-0">support@petotel.com</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center p-3">

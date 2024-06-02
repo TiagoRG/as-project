@@ -1,17 +1,15 @@
 #!/bin/bash
 
-composer install
-if [ $? -ne 0 ]; then
-    echo "Composer install failed"
+if ! which php > /dev/null; then
+    echo "PHP is not installed"
     exit 1
 fi
 
-# get script directory
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" || exit ; pwd -P )
 cd "$parent_path" || exit
-ln -sf "$parent_path"/resources/css public/css
-ln -sf "$parent_path"/resources/js public/js
-ln -sf "$parent_path"/resources/img public/img
+ln -sf "$parent_path"/resources/css public
+ln -sf "$parent_path"/resources/js public
+ln -sf "$parent_path"/resources/img public
 
 if [ ! -f "public/contact_data.csv" ]; then
     echo "Name,Email,Message" > public/contact_data.csv
@@ -19,6 +17,10 @@ fi
 
 if [ ! -f "public/users.csv" ]; then
     echo "Name,Email,Password" > public/users.csv
+fi
+
+if [ ! -f "public/bookings.csv" ]; then
+    echo "Service,Provider,Description,BookedBy" > public/bookings.csv
 fi
 
 php artisan serve

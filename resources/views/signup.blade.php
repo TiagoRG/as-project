@@ -4,20 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta property="og:title" content="Petotel - Login"/>
+    <meta property="og:title" content="Petotel - SignUp"/>
     <meta property="og:description" content="PETOTEL: Pet care services for your pet's needs and well-being."/>
     <meta property="og:image" content="/favicon.png"/>
     <link rel="icon" href="/favicon.png" type="image/png">
-    <title>PETOTEL - Login</title>
+    <title>PETOTEL - SignUp</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/signup.css') }}">
 </head>
 
 <body style="background: url(&quot;img/login/clipboard-image.png&quot;)">
 <div class="container" style="margin-top:50px">
     <div class="row mb-5">
-        <div class="col-md-8 col-xl-6 text-center mx-auto">
-            <h2><span style="color: rgb(11, 94, 215);">Login</span></h2>
+        <div class="col-md-8 col-xl-6 col-xxl-7 text-center mx-auto">
+            <h2><span style="color: rgb(11, 94, 215);">Register your account</span></h2>
         </div>
     </div>
     <div class="row d-flex justify-content-center">
@@ -31,17 +31,26 @@
                         </svg>
                     </div>
                     <div class="row w-100">
-                        <form id="login-form" class="text-center" method="post" action="{{ route('login.submit') }}">
+                        <form class="text-center" method="post" action="{{ route('signup.submit') }}">
                             @csrf
                             <div class="mb-3">
-                                <input class="form-control" type="text" name="email" placeholder="Email" id="login-email" required>
+                                <input class="form-control" type="text" name="username" placeholder="Name" id="signup-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" name="email" placeholder="Email" id="signup-email" required>
                             </div>
                             <div class="mb-3">
                                 <input class="form-control" type="password" name="password" placeholder="Password" required>
                             </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="password" name="cpassword" placeholder="Confirm Password" required>
+                            </div>
+                            <small><input type="checkbox" required/><span
+                                style="color: rgb(0, 0, 0);">&nbsp;I accept the terms and conditions.</span></small>
+                            <div class="mb-3"></div>
                             <div class="row">
                                 <div class="col">
-                                    <button class="btn btn-primary d-block w-100" type="submit">Login</button>
+                                    <button class="btn btn-primary d-block w-100" type="submit">Register</button>
                                 </div>
                                 <div class="col">
                                     <a href="/" style="text-decoration: none">
@@ -51,14 +60,17 @@
                             </div>
                         </form>
                         <script>
+                            @if(session('name'))
+                                document.getElementById('signup-name').value = "{{ session('name') }}";
+                            @endif
                             @if(session('email'))
-                                document.getElementById('login-email').value = "{{ session('email') }}";
+                                document.getElementById('signup-email').value = "{{ session('email') }}";
                             @endif
                         </script>
                     </div>
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-xxl-15 align-items-center">
-                            <h6><span style="color: rgb(55, 100, 146);">Don't have an account?&nbsp; &nbsp;</span><a href="/signup"><span style="color: rgb(11, 94, 215);">Sign up</span></a></h6>
+                        <div class="col-xxl-15">
+                            <h6><span style="color: rgb(55, 100, 146);">Already have an account?&nbsp; &nbsp;</span><a href="/login"><span style="color: rgb(11, 94, 215);">Sign in</span></a></h6>
                         </div>
                     </div>
                     @if(session('inputError'))
@@ -70,17 +82,6 @@
             </div>
         </div>
     </div>
-    @if(session('status'))
-        @if(session('status') == 'Signup successful!')
-        <div class="row mb-5 d-flex justify-content-center">
-            <div class="col-md-6 col-xl-4 col-xxl-4">
-                <div class="card mb-5 align-items-center" style="padding: 15px 0">
-                    Successfully registered! Please login to continue.
-                </div>
-            </div>
-        </div>
-        @endif
-    @endif
 </div>
 <!-- Error Modal -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
@@ -108,5 +109,4 @@
     @endif
 </script>
 </body>
-
 </html>

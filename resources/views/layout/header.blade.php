@@ -8,18 +8,18 @@
         </div>
         <button data-bs-target="#navcol-4" data-bs-toggle="collapse" class="navbar-toggler"><span
                 class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-        <div class="d-none d-md-block" style="text-decoration: none">
+        <div class="d-none d-md-block container" style="text-decoration: none; margin-left: 25px">
             <a href="/"><button class="btn btn-light me-2" type="button">Home</button></a>
             <a href="/services"><button class="btn btn-light me-2" type="button">Services</button></a>
             <a href="/provider"><button class="btn btn-light me-2" type="button">Provider</button></a>
             <a href="/contact"><button class="btn btn-light me-2" type="button">Contact</button></a>
         </div>
         @if(isset($_COOKIE['username']))
-            <div class="dropdown"><a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
+            <div class="dropdown">
+                <a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
                         style="color: rgb(11, 11, 11);">{{ $_COOKIE['username'] }}</span><span
                         style="color: rgb(255, 255, 255);"> </span></a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="/profile">Profile</a>
                     <a class="dropdown-item" href="/requests">My Requests</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -27,7 +27,7 @@
         @else
             <div class="dropdown">
                 <a class="dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span
-                        style="color: rgb(11, 11, 11);">User</span><span style="color: rgb(255, 255, 255);"> </span></a>
+                        style="color: rgb(11, 11, 11);">Not logged in</span><span style="color: rgb(255, 255, 255);"> </span></a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="/login">Login</a>
                     <a class="dropdown-item" href="/signup">Sign up</a>
