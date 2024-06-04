@@ -76,7 +76,7 @@
                                 <div class="col-md-2" style="display: block; align-items: center; text-align: center">
                                     @if($request[4] == 'Active')
                                     <div style="height: 20%"></div>
-                                    <a class="btn btn-primary" href="#" onclick="alert('Soon to be implemented')" style="width: 165px">Message provider</a>
+                                    <a class="btn btn-primary" href="#" id="messagingBtn-{{ $request[1] }}" style="width: 165px">Message provider</a>
                                     <div style="height: 15px"></div>
                                     <a class="btn btn-danger" href="#" onclick="document.getElementById('cancelServiceForm').submit()" style="width: 165px">Cancel service</a>
                                     @elseif($request[4] == 'Cancelled')
@@ -94,6 +94,32 @@
             </div>
         </div>
     </div>
+<!-- Chat Modal -->
+@foreach($requests as $request)
+    <div class="modal fade" id="chatModal-{{ $request[1] }}" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatModalLabel-{{ $request[1] }}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div style="margin-bottom: 10px">
+                        Note: This is a demo chat. Messages will not be saved between sessions.
+                    </div>
+                    <div id="chatMessages-{{ $request[1] }}" style="height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                        <!-- Messages will be appended here -->
+                    </div>
+                    <input type="text" id="chatInput-{{ $request[1] }}" class="form-control" placeholder="Type your message here...">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="sendMessageButton-{{ $request[1] }}">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
 <!-- Modal -->
 <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -114,8 +140,53 @@
 @include('layout.footer')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    document.querySelectorAll('[id^="messagingBtn"]').forEach(item => {
+        item.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default action (navigation) of the click
+            let providerName = item.id.split('-')[1];
+            let chatModal = new bootstrap.Modal(document.getElementById('chatModal-' + providerName), {});
+            document.getElementById('chatModalLabel-' + providerName).innerHTML = 'Chat with ' + providerName;
+            chatModal.show();
+
+            let chatMessages = document.getElementById('chatMessages-' + providerName);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+    });
+
+    function sendMessage(providerName) {
+        let chatInput = document.getElementById('chatInput-' + providerName);
+        let chatMessages = document.getElementById('chatMessages-' + providerName);
+
+        if (chatInput.value.trim() !== '') {
+            var newMessage = document.createElement('p');
+            newMessage.textContent = '{{ $_COOKIE['username'] }}: ' + chatInput.value;
+            chatMessages.appendChild(newMessage);
+
+            // Clear the input field
+            chatInput.value = '';
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    }
+
+    document.querySelectorAll('[id^="sendMessageButton"]').forEach(item => {
+        let providerName = item.id.split('-')[1];
+        item.addEventListener('click', function() {
+            sendMessage(providerName);
+        });
+    });
+
+    document.querySelectorAll('[id^="chatInput"]').forEach(item => {
+        let providerName = item.id.split('-')[1];
+        item.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage(providerName);
+            }
+        });
+    });
+
     @if (session('status'))
-    var myModal = new bootstrap.Modal(document.getElementById('statusModal'), {});
+    let myModal = new bootstrap.Modal(document.getElementById('statusModal'), {});
     myModal.show();
     @endif
 </script>
